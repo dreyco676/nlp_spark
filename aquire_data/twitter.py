@@ -1,11 +1,14 @@
+import json
+from datetime import datetime
+from datetime import timedelta
 from time import sleep
 from time import time
-from datetime import timedelta
-from datetime import datetime
+
+import pandas as pd
 from twython import Twython
 from twython import exceptions as twe
-import pandas as pd
-import json
+
+from aquire_data import secrets
 
 
 class TwitterClient(object):
@@ -15,19 +18,16 @@ class TwitterClient(object):
         self.next_req_time = datetime.fromtimestamp(0)
         self.rate_window = 900
 
-    def _user_auth(self):
-        # credentials tied to @dreyco676
-        app_key = 'XXX'
-        app_secret = 'XXX'
-        oauth_token = 'XXX'
-        oauth_token_secret = 'XXX'
-
-        self.twauth = Twython(app_key, app_secret, oauth_token, oauth_token_secret)
+    def _app_auth(self):
+        # twitter user level credentials come from python file
+        app_key = secrets.twitter_app_secret()
+        access_token = secrets.twitter_access_token()
+        self.twauth = Twython(app_key, access_token=access_token, oauth_version=2)
         return
 
     def get_followers(self, handle):
         result_df = pd.DataFrame()
-        self._user_auth()
+        self._app_auth()
         cursor = -1
         while cursor != 0:
             data = self._follower_req(handle, cursor)
@@ -50,7 +50,7 @@ class TwitterClient(object):
         except (twe.TwythonRateLimitError, TimeoutError) as e:
             print(e)
             sleep(self.rate_window)
-            self._user_auth()
+            self._app_auth()
             data = self._follower_req(twid, cursor)
         except twe.TwythonAuthError as e:
             print(e)
@@ -58,14 +58,14 @@ class TwitterClient(object):
             print(e)
         return data
 
-    def get_timeline(self, twid, creds, filepath):
-        self._user_auth(creds)
+    def get_timeline(self, twid, filepath):
+        self._app_auth()
         max_id = None
         # only can pull 3200 tweets per timeline
         max_timeline = 3200
         tweet_cnt = 0
         while tweet_cnt < max_timeline:
-            data = self._timeline_req(str(twid), max_id, creds)
+            data = self._timeline_req(str(twid), max_id)
             tweets_in_resp = len(data)
             if tweets_in_resp != 0:
                 tweet_cnt += tweets_in_resp
@@ -81,7 +81,7 @@ class TwitterClient(object):
                 break
         return
 
-    def _timeline_req(self, twid, max_id, creds):
+    def _timeline_req(self, twid, max_id):
         data = []
         try:
             self._wait_for_rate_limit()
@@ -90,8 +90,8 @@ class TwitterClient(object):
         except (twe.TwythonRateLimitError, TimeoutError) as e:
             print(e)
             sleep(self.rate_window)
-            self._user_auth(creds)
-            data = self._timeline_req(twid, max_id, creds)
+            self._app_auth()
+            data = self._timeline_req(twid, max_id)
         except twe.TwythonAuthError as e:
             print(e)
         except twe.TwythonError as e:

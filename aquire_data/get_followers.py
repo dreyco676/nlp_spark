@@ -1,9 +1,12 @@
-import twitter as tw
+from aquire_data import twitter as tw
+import datetime
 
+
+# get followers for a user and same them in a UTF-8 Formatted CSV file.
 twitter = tw.TwitterClient()
 
-# get parameters to hand off to twitter
 handle = 'dreyco676'
 result = twitter.get_followers(handle)
-filename = handle + 'followers.txt'
+now = datetime.datetime.now().strftime("%Y-%m-%d")
+filename = handle + '_followers_' + now + '.txt'
 result.to_csv(filename, index=False, mode='a+', encoding='utf-8')
