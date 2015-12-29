@@ -9,7 +9,7 @@ def update_timeline(id_df):
 
         # get parameters to hand off to twitter
         handle = row['User_Id']
-        file_path = 'timelines/' + str(handle) + '_' + str(time()) + '.txt'
+        file_path = 'search_timelines/' + str(handle) + '_' + str(time()) + '.txt'
 
         # get twitter data
         twitter = tw.TwitterClient()
@@ -17,7 +17,7 @@ def update_timeline(id_df):
     return
 
 if __name__ == '__main__':
-    id_df = pd.read_csv('dreyco676_followers_2015-12-23.txt')
+    id_df = pd.read_csv('search_handles.txt', header=None, names=['User_Id'])
     print(id_df)
     update_timeline(id_df)
 

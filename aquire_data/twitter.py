@@ -85,7 +85,7 @@ class TwitterClient(object):
         data = []
         try:
             self._wait_for_rate_limit()
-            data = self.twauth.get_user_timeline(user_id=twid, count=200, exclude_replies=True, max_id=max_id)
+            data = self.twauth.get_user_timeline(screen_name=twid, count=200, exclude_replies=True, max_id=max_id)
             self._update_rate_limit()
         except (twe.TwythonRateLimitError, TimeoutError) as e:
             print(e)
