@@ -122,8 +122,7 @@ def lemmatize(data_str):
         else:
             cleaned_str = cleaned_str + ' ' + lemma
         list_pos += 1
-    trimmed_str = cleaned_str.trim()
-    return trimmed_str
+    return cleaned_str
 
 
 # check to see if a row only contains whitespace
