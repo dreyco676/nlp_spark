@@ -122,7 +122,8 @@ def lemmatize(data_str):
         else:
             cleaned_str = cleaned_str + ' ' + lemma
         list_pos += 1
-    return cleaned_str
+    trimmed_str = cleaned_str.trim()
+    return trimmed_str
 
 
 # check to see if a row only contains whitespace
@@ -134,12 +135,10 @@ def check_blanks(data_str):
 # convert the text label into a numeric one
 def numeric_label(data_str):
     lower_str = data_str.lower()
-    if lower_str == 'python':
+    if lower_str == 'datasci':
         label = 0.0
-    elif lower_str == 'hadoop':
+    elif lower_str == 'wargaming':
         label = 1.0
-    elif lower_str == 'datasci':
-        label = 2.0
     else:
         label = 3.0
     return label
