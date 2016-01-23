@@ -129,15 +129,3 @@ def lemmatize(data_str):
 def check_blanks(data_str):
     is_blank = str(data_str.isspace())
     return is_blank
-
-
-# convert the text label into a numeric one
-def numeric_label(data_str):
-    lower_str = data_str.lower()
-    if lower_str == 'datasci':
-        label = 0.0
-    elif lower_str == 'wargaming':
-        label = 1.0
-    else:
-        label = 3.0
-    return label
