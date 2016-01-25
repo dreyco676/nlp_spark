@@ -12,7 +12,7 @@
 * How to choose the right algorithm?
 * What do I need to start?
 
-##Use PySpark to preprocess textual data
+##Use PySpark to preprocess text data
 * Language Classification
 * Stop Word Removal
 * Custom Twitter Specific Clean Up
@@ -20,7 +20,7 @@
 * Lemmatization/Stemming of Text
 * General Cleanup
 
-##Converting Textual Data into Numerical Data with ML Pipelines
+##Converting text to numerical data with ML Pipelines
 * Tokenization
 * Term Frequency Hashing
 * Inverse Document Frequency
