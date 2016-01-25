@@ -5,6 +5,7 @@
   * NLTK
   * langid
 * Spark 1.6
+  * Local install OK
 
 #Example Description
 * How to create a Data Science vs Spam classifier for twitter?
