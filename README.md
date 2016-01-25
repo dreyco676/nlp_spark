@@ -7,7 +7,7 @@
 * Spark 1.6
 
 ##Example Description
-#How to create a Data Science vs Spam classifier for twitter?
+* How to create a Data Science vs Spam classifier for twitter?
 * How to choose the right algorithm?
 * What do I need to start?
 
@@ -27,3 +27,7 @@
 #Training & Testing a Model
 * Crossvalidation with ML Pipeline CrossValidator
 * Evaluation with ML Pipeline Evaluator
+
+
+## Watch the Talk
+* https://www.youtube.com/watch?v=AsW0QzbYVow
