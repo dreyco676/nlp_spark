@@ -4,6 +4,7 @@
 * Anaconda Python 3.4
   * NLTK
   * langid
+  * findspark (for local spark install only)
 * Spark 1.6
   * Local install OK
 
