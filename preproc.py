@@ -115,8 +115,12 @@ def lemmatize(data_str):
     cleaned_str = ''
     lmtzr = WordNetLemmatizer()
     text = data_str.split()
-    for word in text:
-        lemma = lmtzr.lemmatize(word)
+    tagged_words = pos_tag(text)
+    for word in tagged_words:
+        if 'v' in word[1].lower():
+            lemma = lmtzr.lemmatize(word[0], pos='v')
+        else:
+            lemma = lmtzr.lemmatize(word[0], pos='n')
         if list_pos == 0:
             cleaned_str = lemma
         else:
