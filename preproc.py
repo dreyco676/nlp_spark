@@ -1,9 +1,12 @@
 from nltk.stem.wordnet import WordNetLemmatizer
 from nltk.corpus import stopwords
-from nltk import pos_tag
+#from nltk import pos_tag
+from nltk.tag.perceptron import PerceptronTagger
 import string
 import re
 import langid
+
+tagger = PerceptronTagger()
 
 # Use langid module to classify the language to make sure we are applying the correct cleanup actions for English
 # https://github.com/saffsd/langid.py
@@ -93,7 +96,8 @@ def tag_and_remove(data_str):
     text = data_str.split()
 
     # tag the text and keep only those with the right tags
-    tagged_text = pos_tag(text)
+    #tagged_text = pos_tag(text)
+    tagged_text = tagger.tag(text)
     for tagged_word in tagged_text:
         if tagged_word[1] in nltk_tags:
             cleaned_str += tagged_word[0] + ' '
@@ -115,7 +119,8 @@ def lemmatize(data_str):
     cleaned_str = ''
     lmtzr = WordNetLemmatizer()
     text = data_str.split()
-    tagged_words = pos_tag(text)
+    #tagged_words = pos_tag(text)
+    tagged_words = tagger.tag(text)
     for word in tagged_words:
         if 'v' in word[1].lower():
             lemma = lmtzr.lemmatize(word[0], pos='v')
